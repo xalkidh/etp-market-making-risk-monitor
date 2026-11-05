@@ -54,10 +54,15 @@ c3.metric("GREEN", int(counts.get("GREEN", 0)))
 
 # ---- Limits table ----
 st.subheader("Limit monitoring")
+def fmt(metric, x):
+    return f"{x:.0%}" if "% gross" in metric else f"{x:,.0f}"
+
 show = report.copy()
 show["Utilisation"] = (show["Utilisation"] * 100).round(0)
+show["Value"] = [fmt(m, v) for m, v in zip(report.index, report["Value"])]
+show["Limit"] = [fmt(m, v) for m, v in zip(report.index, report["Limit"])]
 styled = (show.style.apply(lambda col: [COLORS[v] for v in col], subset=["Status"])
-          .format({"Value": "{:,.2f}", "Limit": "{:,.2f}", "Utilisation": "{:.0f}%"}))
+          .format({"Utilisation": "{:.0f}%"}))
 st.dataframe(styled, use_container_width=True)
 
 for metric, r in report[report["Status"] != "GREEN"].iterrows():
