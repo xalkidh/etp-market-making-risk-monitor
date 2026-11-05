@@ -36,8 +36,8 @@ def status(utilisation):
     return "GREEN"
 
 
-def compute_metrics(prices, rets):
-    mv = market_values(POSITIONS, prices)
+def compute_metrics(prices, rets, positions=POSITIONS):
+    mv = market_values(positions, prices)
     b = betas(rets)
     exp = exposures(mv)
     pnl = hypothetical_pnl(mv, rets)
@@ -60,8 +60,8 @@ def compute_metrics(prices, rets):
     return mv, metrics
 
 
-def limit_report(prices, rets):
-    mv, metrics = compute_metrics(prices, rets)
+def limit_report(prices, rets, positions=POSITIONS):
+    mv, metrics = compute_metrics(prices, rets, positions)
     rows = [{"Metric": k, "Value": v, "Limit": LIMITS[k]} for k, v in metrics.items()]
 
     cp = counterparty_table(mv, rets)
