@@ -1,6 +1,6 @@
 import pandas as pd
 
-from data import download_prices, compute_returns
+from src.data import download_prices, compute_returns
 
 # Signed positions in shares (+ long, - short). Simulated market-maker inventory.
 POSITIONS = {

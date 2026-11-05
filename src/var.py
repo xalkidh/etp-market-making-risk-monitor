@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 from scipy.stats import norm
 
-from data import download_prices, compute_returns
-from book import POSITIONS, market_values, hypothetical_pnl
+from src.data import download_prices, compute_returns
+from src.book import POSITIONS, market_values, hypothetical_pnl
 
 
 def historical_var(pnl, alpha=0.99):
